@@ -4,6 +4,7 @@
 ## Stacks
 
 - google cloud run
+- google storage
 - google pub/sub
 - python
 - docker
