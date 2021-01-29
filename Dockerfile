@@ -6,6 +6,7 @@ FROM python:3.8-slim
 #RUN pip install Flask gunicorn
 RUN pip install --upgrade google-cloud-storage
 RUN pip install --upgrade google-cloud-pubsub
+RUN pip install pytest
 RUN pip install yfinance
 
 # Copy local code to the container image.
