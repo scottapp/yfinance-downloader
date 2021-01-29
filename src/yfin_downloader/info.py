@@ -1,7 +1,7 @@
 import os
 from datetime import datetime as dt
-from yfin_downloader.downloader import download_stock_history, save_pickle
-from yfin_downloader.utils import load_data
+from yfin_downloader.downloader import download_stock_history
+from yfin_downloader.utils import load_data, save_pickle
 import yfinance as yf
 import json
 from yfin_downloader.utils import chunks, to_json

@@ -1,7 +1,7 @@
 import os
 from datetime import datetime as dt
 from yfin_downloader.downloader import download_stock_history
-from yfin_downloader.utils import load_data, to_json, zipdir
+from yfin_downloader.utils import load_data, to_json, zipdir, save_pickle
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
 import zipfile
@@ -24,11 +24,12 @@ def fetch(tickers, data_dir, period):
     errors = list()
     for ticker in tickers:
         try:
-            ret = download_stock_history(ticker, data_dir, period)
-            if not ret:
-                errors.append(ticker)
+            logging.info('downloading %s' % ticker)
+            df = download_stock_history(ticker, period)
+            if not df.empty:
+                save_pickle(df, '%s/%s_prices.pkl' % (data_dir, ticker))
         except Exception as ex:
-            print(ex)
+            logging.error(ex)
             errors.append(ticker)
             continue
     return errors
