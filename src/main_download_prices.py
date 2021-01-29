@@ -68,6 +68,8 @@ def main():
         ticker = cols[0].rstrip(".OB")
         tickers.append(ticker)
 
+    tickers = tickers[0:100]
+
     total = len(tickers)
     working_dir = os.getcwd()
     dst_dir = '%s/data/%s' % (working_dir, str(dt.today().date()))
@@ -95,16 +97,19 @@ def main():
     # upload zip to google cloud
     bucket = '%s-test' % project_id
     upload_blob(bucket, '%s/%s' % (working_dir, zip_filename), zip_filename)
+    logging.info("upload completed")
 
+    """
     publisher = pubsub_v1.PublisherClient()
     # The `topic_path` method creates a fully qualified identifier
     # in the form `projects/{project_id}/topics/{topic_id}`
     topic_path = publisher.topic_path(project_id, "daily_yahoo_download")
-
+    
     data = "OK:%s" % zip_filename
     data = data.encode("utf-8")
     future = publisher.publish(topic_path, data)
     logging.info(future.result())
+    """
 
 
 """

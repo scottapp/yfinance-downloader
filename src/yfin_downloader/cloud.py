@@ -6,11 +6,12 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
     # bucket_name = "your-bucket-name"
     # source_file_name = "local/path/to/file"
     # destination_blob_name = "storage-object-name"
-
-    storage_client = storage.Client()
+    try:
+        storage_client = storage.Client()
+    except Exception as ex:
+        print(ex)
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
-
     blob.upload_from_filename(source_file_name)
 
     print(
