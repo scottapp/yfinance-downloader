@@ -60,7 +60,7 @@ def main():
     key = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', None)
     assert key, 'error key'
 
-    lines = load_data("data/OTCBB.txt")
+    lines = load_data("data/OTCBB-2021-01-29.txt")
 
     tickers = []
     for line in lines[1:]:
