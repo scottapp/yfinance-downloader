@@ -68,8 +68,6 @@ def main():
         ticker = cols[0].rstrip(".OB")
         tickers.append(ticker)
 
-    tickers = tickers[0:100]
-
     total = len(tickers)
     working_dir = os.getcwd()
     dst_dir = '%s/data/%s' % (working_dir, str(dt.today().date()))
