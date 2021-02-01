@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG, filename='log/main_download_prices.log'
 
 
 def extract_latest_month_data(trade_date):
-    lines = load_data("data/OTCBB.txt")
+    lines = load_data("data/OTCBB-2021-01-29.txt")
     tickers = []
     for line in lines[1:]:
         cols = line.strip().split("\t")
