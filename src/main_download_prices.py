@@ -24,7 +24,7 @@ def fetch(tickers, data_dir, period):
     errors = list()
     for ticker in tickers:
         try:
-            logging.info('downloading %s' % ticker)
+            logging.debug('downloading %s' % ticker)
             df = download_stock_history(ticker, period)
             if not df.empty:
                 save_pickle(df, '%s/%s_prices.pkl' % (data_dir, ticker))
@@ -68,8 +68,6 @@ def main():
         ticker = cols[0].rstrip(".OB")
         tickers.append(ticker)
 
-    tickers = tickers[0:100]
-
     total = len(tickers)
     working_dir = os.getcwd()
     dst_dir = '%s/data/%s' % (working_dir, str(dt.today().date()))
@@ -84,6 +82,7 @@ def main():
 
     ticker_lists = chunks(tickers, 10)
     run_async(ticker_lists, dst_dir, '6mo')
+    logging.info("async run finished")
 
     end_time = dt.now()
     logging.info((end_time - start_time).total_seconds())
