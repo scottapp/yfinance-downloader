@@ -11,7 +11,7 @@ from google.cloud import pubsub_v1
 import logging
 
 FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-logging.basicConfig(level=logging.DEBUG, filename='log/main_download_prices.log', filemode='w', format=FORMAT)
+logging.basicConfig(level=logging.INFO, filename='log/main_download_prices.log', filemode='w', format=FORMAT)
 
 
 def chunks(lst, n):
@@ -68,6 +68,8 @@ def main():
         ticker = cols[0].rstrip(".OB")
         tickers.append(ticker)
 
+    tickers = tickers[0:100]
+
     total = len(tickers)
     working_dir = os.getcwd()
     dst_dir = '%s/data/%s' % (working_dir, str(dt.today().date()))
@@ -91,6 +93,7 @@ def main():
     zipf = zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED)
     zipdir(dst_dir, zipf)
     zipf.close()
+    logging.info('zip file created, %s' % zip_filename)
 
     # upload zip to google cloud
     bucket = '%s-test' % project_id
