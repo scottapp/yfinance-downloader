@@ -81,8 +81,10 @@ def main():
     start_time = dt.now()
 
     ticker_lists = chunks(tickers, 10)
+
+    logging.info("async run start")
     run_async(ticker_lists, dst_dir, '6mo')
-    logging.info("async run finished")
+    logging.info("async run finish")
 
     end_time = dt.now()
     logging.info((end_time - start_time).total_seconds())
