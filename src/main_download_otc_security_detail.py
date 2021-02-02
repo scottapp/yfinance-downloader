@@ -86,7 +86,8 @@ if __name__ == "__main__":
         data_dir = '%s/data' % cur_dir
         assert os.path.isdir(data_dir), 'error data dir, %s' % data_dir
 
-        today_date = dt.today().date()
+        #today_date = dt.today().date()
+        today_date = '2021-01-31'
         dst_dir = '%s/info/%s' % (data_dir, today_date)
         try:
             if not os.path.isdir(dst_dir):
@@ -102,7 +103,18 @@ if __name__ == "__main__":
             cols = line.strip().split("\t")
             ticker = cols[0].rstrip(".OB")
             tickers.append(ticker)
-        ticker_lists = chunks(tickers, 10)
+
+        print(len(tickers))
+        tmp_tickers = []
+        for ticker in tickers:
+            path = '%s/%s.json' % (dst_dir, ticker)
+            if os.path.isfile(path):
+                continue
+            tmp_tickers.append(ticker)
+
+        tickers = tmp_tickers
+        print(len(tickers))
+        #ticker_lists = chunks(tickers, 10)
 
         loop = asyncio.get_event_loop()
 

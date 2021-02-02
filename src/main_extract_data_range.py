@@ -23,7 +23,7 @@ def extract_latest_month_data(trade_date):
     total = len(tickers)
     count = 1
     working_dir = os.getcwd()
-    #dst_dir = '%s/../data/%s_%s' % (working_dir, range_start.date(), dt.today().date())
+
     dst_dir = '%s/data/%s-2' % (working_dir, trade_date)
     try:
         if not os.path.isdir(dst_dir):
@@ -35,7 +35,6 @@ def extract_latest_month_data(trade_date):
     for ticker in tickers:
         try:
             df = load_pickle('data/%s/%s_prices.pkl' % (trade_date, ticker))
-            # print(df.loc[[one_month_before:today], ['Open', 'High', 'Low', 'Close', 'Volume']])
             target_range = df.loc[range_start:today]
             target_range.to_pickle("%s/%s.pkl" % (dst_dir, ticker))
             print('%s/%s saved %s' % (count, total, ticker))
