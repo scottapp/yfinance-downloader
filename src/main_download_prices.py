@@ -68,8 +68,7 @@ def main():
         ticker = cols[0].rstrip(".OB")
         tickers.append(ticker)
 
-    print('total tickers, %s' % len(tickers))
-    assert False
+    logging.info('total tickers, %s' % len(tickers))
 
     working_dir = os.getcwd()
     dst_dir = '%s/data/%s' % (working_dir, str(dt.today().date()))
