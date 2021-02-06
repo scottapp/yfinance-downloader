@@ -68,7 +68,9 @@ def main():
         ticker = cols[0].rstrip(".OB")
         tickers.append(ticker)
 
-    total = len(tickers)
+    print('total tickers, %s' % len(tickers))
+    assert False
+
     working_dir = os.getcwd()
     dst_dir = '%s/data/%s' % (working_dir, str(dt.today().date()))
     try:
@@ -80,7 +82,7 @@ def main():
 
     start_time = dt.now()
 
-    ticker_lists = chunks(tickers, 10)
+    ticker_lists = chunks(tickers, 20)
 
     logging.info("async run start")
     run_async(ticker_lists, dst_dir, '6mo')
@@ -130,7 +132,8 @@ def extract(tar_path, target_path):
 if __name__ == "__main__":
     try:
         loop = asyncio.get_event_loop()
-        executor = ProcessPoolExecutor(max_workers=20)
+        executor = ProcessPoolExecutor(max_workers=10)
         main()
     except Exception as ex:
+        print(ex)
         logging.error(ex)
