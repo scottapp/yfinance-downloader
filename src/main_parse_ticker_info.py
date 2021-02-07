@@ -42,8 +42,11 @@ def parse_ticker_info():
 
                 details['publicFloat'] = security_data.get('publicFloat', None)
                 details['unrestrictedShares'] = security_data.get('unrestrictedShares', None)
+                details['outstandingShares'] = security_data.get('outstandingShares', None)
+
                 details['publicFloatAsOfDate'] = security_data.get('publicFloatAsOfDate', 0)
                 details['unrestrictedSharesAsOfDate'] = security_data.get('unrestrictedSharesAsOfDate', 0)
+                details['outstandingSharesAsOfDate'] = security_data.get('outstandingSharesAsOfDate', 0)
                 infos[ticker] = details
 
         except Exception as ex:
