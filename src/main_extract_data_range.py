@@ -6,7 +6,7 @@ from yfin_downloader.utils import load_data
 import logging
 
 FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-logging.basicConfig(level=logging.DEBUG, filename='log/main_download_prices.log', filemode='w', format=FORMAT)
+logging.basicConfig(level=logging.DEBUG, filename='log/main_extract_data_range.log', filemode='w', format=FORMAT)
 
 
 def extract_latest_month_data(trade_date):
@@ -44,10 +44,19 @@ def extract_latest_month_data(trade_date):
             continue
 
 
+def extract_twse_data(trade_date, ticker):
+    try:
+        df = load_pickle('data/twse/%s/%s_prices.pkl' % (trade_date, ticker))
+        print(df)
+    except Exception as ex:
+        logging.error(ex)
+
+
 if __name__ == "__main__":
     try:
         today_date = str(dt.today().date())
-        extract_latest_month_data(today_date)
+        #extract_latest_month_data(today_date)
+        extract_twse_data(today_date, '9925.TW')
     except Exception as ex:
         logging.error(ex)
 
